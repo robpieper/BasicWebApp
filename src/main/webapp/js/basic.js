@@ -1,0 +1,12 @@
+$(function(){
+	$("INPUT[type=submit],BUTTON").mouseover(function(){
+		$(this).addClass("hover");
+	}).mouseout(function(){
+		$(this).removeClass("hover");
+	});
+	$("INPUT[type=submit],BUTTON").mousedown(function(){
+		$(this).addClass("active");
+	}).mouseup(function(){
+		$(this).removeClass("active");
+	});
+});
