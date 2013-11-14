@@ -64,14 +64,14 @@ public class SubscriberAction extends BaseAction {
 
 	/* READ-ONLY */
 
-	public Subscriber getSubscriber() {
-		return subscriber;
+	public List<Subscriber> getSubscribers() {
+		return subscribers;
 	}
 
 	/* READ/WRITE */
 
-	public List<Subscriber> getSubscribers() {
-		return subscribers;
+	public Subscriber getSubscriber() {
+		return subscriber;
 	}
 
 	public void setSubscriber(final Subscriber subscriber) {
