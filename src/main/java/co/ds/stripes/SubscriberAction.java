@@ -4,6 +4,8 @@ import co.ds.bean.Subscriber;
 import co.ds.mybatis.mapper.SubscriberMapper;
 import com.google.inject.Inject;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import java.util.List;
 
@@ -17,6 +19,10 @@ public class SubscriberAction extends BaseAction {
 
 	private List<Subscriber> subscribers;
 
+	@ValidateNestedProperties({
+			@Validate(on = "save", field = "name", required = true),
+			@Validate(on = "save", field = "email", required = true)
+	})
 	private Subscriber subscriber;
 
 	@Inject
