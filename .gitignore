@@ -1,3 +1,7 @@
 .idea
 *.iml
 target
+basicdb.log
+basicdb.properties
+basicdb.script
+basicdb.tmp
