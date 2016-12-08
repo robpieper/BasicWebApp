@@ -10,3 +10,5 @@ jgitflow:hotfix-finish
 jgitflow:hotfix-start
 jgitflow:release-finish
 jgitflow:release-start
+
+slight change
