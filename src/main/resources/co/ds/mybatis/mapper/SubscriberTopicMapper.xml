@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.ds.mybatis.mapper.SubscriberTopicMapper">
+
+	<cache/>
+
+	<select id="list" resultType="Integer">
+		select topic_id from subscriber_topic where subscriber_id=#{value}
+	</select>
+
+	<insert id="insert">
+		insert into subscriber_topic(subscriber_id, topic_id) values (#{subscriber_id},#{topic_id})
+	</insert>
+
+	<delete id="deleteForSubscriber" parameterType="integer">
+		delete from subscriber_topic where subscriber_id=#{value}
+	</delete>
+</mapper>

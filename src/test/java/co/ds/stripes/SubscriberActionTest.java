@@ -2,12 +2,15 @@ package co.ds.stripes;
 
 import co.ds.bean.Subscriber;
 import co.ds.mybatis.mapper.SubscriberMapper;
+import co.ds.mybatis.mapper.SubscriberTopicMapper;
+import co.ds.mybatis.mapper.TopicMapper;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -27,6 +30,12 @@ public class SubscriberActionTest extends AbstractBaseActionTest<SubscriberActio
 	@ConstructorParam
 	@Mock
 	private SubscriberMapper subscriberMapper;
+	@ConstructorParam
+	@Mock
+	private TopicMapper topicMapper;
+	@ConstructorParam
+	@Mock
+	private SubscriberTopicMapper subscriberTopicMapper;
 
 	@Captor
 	private ArgumentCaptor<Subscriber> subscriberArgumentCaptor;
@@ -50,8 +59,12 @@ public class SubscriberActionTest extends AbstractBaseActionTest<SubscriberActio
 
 	@Test
 	public void should_display_edit() throws Exception {
+		final List<Integer> subscriberList = new ArrayList<Integer>();
+		subscriberList.add(1);
+		subscriberList.add(2);
 		trip.setParameter("subscriber.id", SUBSCRIBER_ID.toString());
 		when(subscriberMapper.fetch(SUBSCRIBER_ID)).thenReturn(getSubscriber());
+		when(subscriberTopicMapper.list(SUBSCRIBER_ID)).thenReturn(subscriberList);
 		trip.execute("edit");
 		assertEquals("Unexpected resolution", FORM_FORWARD, trip.getDestination());
 	}

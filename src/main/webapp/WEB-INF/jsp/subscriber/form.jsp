@@ -71,6 +71,15 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+				<div class="row">
+					<div class="label">Topics:</div>
+					<div class="field">
+						<c:forEach items="${actionBean.topics}" var="topic">
+							<label for="topic_${topic.id}"><stripes:checkbox name="subscriber.topicIds" id="topic_${topic.id}" value="${topic.id}"/>${topic.name}</label><br/>
+						</c:forEach>
+					</div>
+					<div class="clear"></div>
+				</div>
 			</div>
 		</stripes:form>
 	</stripes:layout-component>

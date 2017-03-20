@@ -1,7 +1,10 @@
 package co.ds.stripes;
 
 import co.ds.bean.Subscriber;
+import co.ds.bean.Topic;
 import co.ds.mybatis.mapper.SubscriberMapper;
+import co.ds.mybatis.mapper.SubscriberTopicMapper;
+import co.ds.mybatis.mapper.TopicMapper;
 import com.google.inject.Inject;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
@@ -16,8 +19,11 @@ public class SubscriberAction extends BaseAction {
 	private static final String FORM_FORWARD = "/WEB-INF/jsp/subscriber/form.jsp";
 
 	private SubscriberMapper subscriberMapper;
+	private TopicMapper topicMapper;
+	private SubscriberTopicMapper subscriberTopicMapper;
 
 	private List<Subscriber> subscribers;
+	private List<Topic> topics;
 
 	@ValidateNestedProperties({
 			@Validate(on = "save", field = "name", required = true),
@@ -26,8 +32,10 @@ public class SubscriberAction extends BaseAction {
 	private Subscriber subscriber;
 
 	@Inject
-	public SubscriberAction(final SubscriberMapper subscriberMapper) {
+	public SubscriberAction(final SubscriberMapper subscriberMapper, final TopicMapper topicMapper, final SubscriberTopicMapper subscriberTopicMapper) {
 		this.subscriberMapper = subscriberMapper;
+		this.topicMapper = topicMapper;
+		this.subscriberTopicMapper = subscriberTopicMapper;
 	}
 
 	@DefaultHandler
@@ -42,10 +50,13 @@ public class SubscriberAction extends BaseAction {
 
 	public Resolution edit() {
 		subscriber = subscriberMapper.fetch(subscriber.getId());
+		final List<Integer> subscriberTopics = subscriberTopicMapper.list(subscriber.getId());
+		subscriber.setTopicIds(subscriberTopics);
 		return form();
 	}
 
 	public Resolution form() {
+		topics = topicMapper.list();
 		return new ForwardResolution(FORM_FORWARD);
 	}
 
@@ -56,8 +67,15 @@ public class SubscriberAction extends BaseAction {
 	public Resolution save() {
 		if (subscriber.getId() == null) {
 			subscriberMapper.insert(subscriber);
+			for(final Integer topicId : subscriber.getTopicIds()) {
+				subscriberTopicMapper.insert(subscriber.getId(), topicId);
+			}
 		} else {
 			subscriberMapper.update(subscriber);
+			subscriberTopicMapper.deleteForSubscriber(subscriber.getId());
+			for(final Integer topicId : subscriber.getTopicIds()) {
+				subscriberTopicMapper.insert(subscriber.getId(), topicId);
+			}
 		}
 		return new RedirectResolution(SubscriberAction.class);
 	}
@@ -76,5 +94,13 @@ public class SubscriberAction extends BaseAction {
 
 	public void setSubscriber(final Subscriber subscriber) {
 		this.subscriber = subscriber;
+	}
+
+	public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(final List<Topic> topics) {
+		this.topics = topics;
 	}
 }
