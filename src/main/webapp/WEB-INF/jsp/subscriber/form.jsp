@@ -62,11 +62,11 @@
 					<div class="clear"></div>
 				</div>
 				<div class="row">
-					<div class="label">Recipient 2:</div>
+					<div class="label">Recipient:</div>
 					<div class="field">
 						<stripes:text name="subscriber.email" id="email"/>
 						<stripes:errors field="subscriber.email">
-							<div class="form-error" id="recipient2-error"><stripes:individual-error/></div>
+							<div class="form-error" id="recipient-error"><stripes:individual-error/></div>
 						</stripes:errors>
 					</div>
 					<div class="clear"></div>
