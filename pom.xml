@@ -7,8 +7,8 @@
 	<name>BasicWebApp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<scm>
-		<connection>scm:git:https://github.com/bgoodin/BasicWebApp.git</connection>
-		<developerConnection>scm:git:https://github.com/bgoodin/BasicWebApp.git</developerConnection>
+		<connection>scm:git:https://github.com/robpieper/BasicWebApp.git</connection>
+		<developerConnection>scm:git:https://github.com/robpieper/BasicWebApp.git</developerConnection>
 		<tag>true</tag>
 	</scm>
 	<dependencies>
@@ -129,6 +129,7 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+				<version>${maven-compiler-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -165,4 +166,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	<properties>
+		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+	</properties>
 </project>
