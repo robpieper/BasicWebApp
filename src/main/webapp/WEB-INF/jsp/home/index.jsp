@@ -33,5 +33,15 @@
 				</li>
 			</ul>
 		</div>
+		<div id="welcome-content" class="mwt-corner-all">
+			<ul>
+				<li>
+					<h3>Tools</h3>
+					<ul>
+						<li><stripes:link beanclass="co.ds.stripes.TopicAction">Topics</stripes:link></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</stripes:layout-component>
 </stripes:layout-render>
